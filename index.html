@@ -55,23 +55,58 @@
             animation: slide 15s infinite;
         }
 
-        .slides img {
-            width: 400px;
-            height: 350px;
-            object-fit: cover;
-        }
+        .slider {
+    width: 90%;
+    max-width: 600px;
+    height: 350px;
+    overflow: hidden;
+    margin: 30px auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    position: relative;
+}
 
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(0); }
-            25% { transform: translateX(-600px); }
-            45% { transform: translateX(-600px); }
-            50% { transform: translateX(-1200px); }
-            70% { transform: translateX(-1200px); }
-            75% { transform: translateX(-1800px); }
-            95% { transform: translateX(-1800px); }
-            100% { transform: translateX(0); }
-        }
+.slides {
+    display: flex;
+    width: calc(600px * 6);
+    animation: slide 18s infinite;
+}
+
+.slides img {
+    width: 600px;
+    height: 350px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+@keyframes slide {
+
+    0%, 15% {
+        transform: translateX(0);
+    }
+
+    20%, 35% {
+        transform: translateX(-600px);
+    }
+
+    40%, 55% {
+        transform: translateX(-1200px);
+    }
+
+    60%, 75% {
+        transform: translateX(-1800px);
+    }
+
+    80%, 95% {
+        transform: translateX(-2400px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+        
 
         .btn-bleu {
             padding: 15px 40px;
