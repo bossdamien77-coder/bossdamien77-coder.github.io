@@ -1,1 +1,155 @@
-shopping chez Damien 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damien Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            margin: 20px 0;
+        }
+
+        .slogan {
+            font-size: 1.4rem;
+            margin: 15px 0;
+            opacity: 0.95;
+        }
+
+        .slider {
+            width: 90%;
+            max-width: 600px;
+            height: 350px;
+            overflow: hidden;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .slides {
+            display: flex;
+            width: 2400px;
+            animation: slide 15s infinite;
+        }
+
+        .slides img {
+            width: 600px;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(0); }
+            25% { transform: translateX(-600px); }
+            45% { transform: translateX(-600px); }
+            50% { transform: translateX(-1200px); }
+            70% { transform: translateX(-1200px); }
+            75% { transform: translateX(-1800px); }
+            95% { transform: translateX(-1800px); }
+            100% { transform: translateX(0); }
+        }
+
+        .btn-bleu {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 25px 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-bleu:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+        }
+
+        video {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            margin: 30px auto;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2.5rem 1rem;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Damien Shopping</h1>
+        <div class="logo">
+            <img src="Damien.png" width="300" alt="Logo Damien Shopping">
+        </div>
+        <p class="slogan">La qualité au meilleur prix</p>
+    </header>
+
+    <main>
+        <h2>Bienvenue sur notre plateforme</h2>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 20px auto;">
+            Découvrez nos nouveaux articles disponibles.
+        </p>
+
+        <!-- Slider -->
+        <div class="slider">
+            <div class="slides">
+                <img src="produits 1.jpeg" alt="Produit 1">
+                <img src="produits 2.jpeg" alt="Produit 2">
+                <img src="produits 4.jpg" alt="Produit 4">
+                <img src="produits 10.jpeg" alt="Produit 10">
+            </div>
+        </div>
+
+        <a href="boutique.html">
+            <button class="btn-bleu">Visiter la Boutique</button>
+        </a>
+
+        <h2>Vidéo de présentation</h2>
+        <video autoplay muted loop playsinline>
+            <source src="produits 3.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+
+        
+ 
+
+    <footer>
+        <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
+        <p>Développé par <strong>bossdamien77-coder</strong></p>
+    </footer>
+
+</body>
+</html>
