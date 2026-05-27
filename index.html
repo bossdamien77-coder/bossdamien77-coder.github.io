@@ -39,21 +39,56 @@
             opacity: 0.95;
         }
 
-        .slider {
-            width: 90%;
-            max-width: 400px;
-            height: 200px;
-            overflow: hidden;
-            margin: 30px auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+        .slider{
+    width:400px;
+    height:200px;
+    overflow:hidden;
+    margin:30px auto;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    position:relative;
+}
 
-        .slides {
-            display: flex;
-            width: 2400px;
-            animation: slide 15s infinite;
-        }
+.slides{
+    display:flex;
+    width:2400px;
+    animation:slide 18s infinite;
+}
+
+.slides img{
+    width:400px;
+    height:200px;
+    object-fit:cover;
+    flex-shrink:0;
+}
+
+@keyframes slide{
+
+    0%, 15%{
+        transform:translateX(0);
+    }
+
+    20%, 35%{
+        transform:translateX(-400px);
+    }
+
+    40%, 55%{
+        transform:translateX(-800px);
+    }
+
+    60%, 75%{
+        transform:translateX(-1200px);
+    }
+
+    80%, 95%{
+        transform:translateX(-1600px);
+    }
+
+    100%{
+        transform:translateX(-2000px);
+    }
+
+}
 
         .slider {
     width: 90%;
