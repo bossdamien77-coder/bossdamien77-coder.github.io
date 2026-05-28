@@ -1,96 +1,119 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Contact - Damien Shopping</title>
-
-<style>
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f8f9fa;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
-
-header{
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    color:white;
-    padding:25px;
-}
-
-.container{
-    max-width:500px;
-    margin:40px auto;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-input,textarea{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-}
-
-button{
-    background:#ff4757;
-    color:white;
-    border:none;
-    padding:14px 25px;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:0.9;
-}
-
-footer{
-    margin-top:40px;
-    background:#2c3e50;
-    color:white;
-    padding:20px;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finaliser votre Achat - Damien Shopping</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: #f8f9fa; 
+            color: #333; 
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2ecc71;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        .info {
+            margin: 25px 0;
+            font-size: 1.3rem;
+        }
+        .contact-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+        .btn-whatsapp {
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #00c851, #007e33);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 200, 81, 0.4);
+        }
+        .btn-whatsapp:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2.5rem 1rem;
+            margin-top: 60px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-    <h1>Contact Damien Shopping</h1>
-</header>
+    <header>
+        <div class="nav">
+            <h1>Damien Shopping</h1>
+            <div style="display: flex; align-items: center; gap: 15px; font-size: 1.1rem;">
+                <a href="acceuil.html" style="color:white; text-decoration:none;">Accueil</a>
+                <a href="boutique.html" style="color:white; text-decoration:none;">Boutique</a>
+                <a href="telephone.html" style="color:white; text-decoration:none;">Téléphones</a>
+                <a href="ordinateur.html" style="color:white; text-decoration:none;">Ordinateurs</a>
+                <a href="accessoires.html" style="color:white; text-decoration:none;">Accessoires</a>
+                <a href="contact.html" style="color:white; text-decoration:none;">Contact</a>
+            </div>
+        </div>
+    </header>
 
-<div class="container">
+    <div class="container">
+        <h1>🎉 Finaliser votre Achat</h1>
+        <p style="font-size: 1.4rem; margin-bottom: 30px;">Merci d'avoir choisi <strong>Damien Shopping</strong></p>
 
-    <h2>Envoyez-nous un message</h2>
+        <div class="contact-box">
+            <h2>📱 Contact WhatsApp</h2>
+            <p class="info"><strong>+226 51 01 01 36</strong></p>
+            <a href="https://api.whatsapp.com/send?phone=22651010136&text=Bonjour%20je%20viens%20de%20votre%20site%20et%20je%20veux%20finaliser%20mon%20achat" target="_blank">
+                <button class="btn-whatsapp">💬 Commander sur WhatsApp</button>
+            </a>
+        </div>
 
-    <form action="https://formsubmit.co/damienboss77@gmail.com" method="POST">
+        <div class="contact-box">
+            <h2>📧 Emails</h2>
+            <p class="info">damiencocti@gmail.com</p>
+            <p class="info">coctioudou@gmail.com</p>
+        </div>
 
-        <input type="text" name="name" placeholder="Votre nom" required>
+        <p style="margin-top: 30px; font-size: 1.1rem; color: #555;">
+            Un de nos conseillers vous répondra rapidement après votre message.
+        </p>
+    </div>
 
-        <input type="email" name="email" placeholder="Votre email" required>
-
-        <textarea name="message" rows="6" placeholder="Votre message" required></textarea>
-
-        <button type="submit">Envoyer</button>
-
-    </form>
-
-</div>
-
-<footer>
-    <p>&copy; 2026 Damien Shopping</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
+        <p>Développé par <strong>bossdamien77-coder</strong></p>
+    </footer>
 
 </body>
 </html>
