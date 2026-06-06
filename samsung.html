@@ -1,61 +1,479 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Samsung - Damien Shopping</title>
+    <style>
 
-<meta charset="UTF-8">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<title>Samsung</title>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f8f9fa;
+            color: #333;
+        }
 
-<style>
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+        }
 
-body{
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-    text-align:center;
-    font-family:Arial;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 1.05rem;
+        }
 
-}
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-img{
+        .nav-link:hover {
+            color: #ffd32a;
+        }
 
-    width:300px;
-    margin:20px;
-    border-radius:10px;
+        .cart-icon {
+            cursor: pointer;
+            position: relative;
+            font-size: 1.6rem;
+        }
 
-}
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
-</style>
+        h2 {
+            margin-top: 40px;
+            font-size: 2rem;
+        }
 
+        .subtitle {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+        }
+
+        .product img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product h3 {
+            margin-top: 15px;
+        }
+
+        .product p {
+            margin: 10px 0;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff4757;
+            margin: 10px 0;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            font-size: 1.05rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 15px 0 25px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* ====== OVERLAY PANIER ====== */
+        .cart-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .cart-overlay.active { display: flex; }
+        .cart-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .cart-modal h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            gap: 10px;
+        }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-weight: bold; }
+        .cart-item-detail { font-size: 0.9rem; color: #666; }
+        .cart-item-price { font-weight: bold; color: #ff4757; white-space: nowrap; }
+        .btn-supprimer {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            margin-left: 8px;
+        }
+        .btn-supprimer:hover { background: #c0392b; }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #333;
+        }
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        .cart-actions button {
+            flex: 1;
+            min-width: 130px;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            color: white;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .cart-actions button:hover { transform: scale(1.05); }
+        .btn-fermer { background: linear-gradient(135deg, #999, #666); }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .btn-vider { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .empty-cart {
+            text-align: center;
+            padding: 40px 0;
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2.5rem 1rem;
+            margin-top: 60px;
+        }
+
+    </style>
 </head>
-
 <body>
 
-<h1>Téléphones Samsung</h1>
+    <header>
+        <div class="nav">
+            <h1>Damien Shopping</h1>
+            <div class="nav-links">
+                <a href="accueil.html" class="nav-link">Accueil</a>
+                <a href="boutique.html" class="nav-link">Boutique</a>
+                <a href="telephone.html" class="nav-link">Téléphones</a>
+                <a href="ordinateur.html" class="nav-link">Ordinateurs</a>
+                <a href="accessoires.html" class="nav-link">Accessoires</a>
 
-<a href="achat.html">
+                <div onclick="toggleCart()" class="cart-icon">
+                    🛒
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<img src="samsung1.jpg">
+    <main>
+       <h2>📱 Samsung Galaxy <h2>
+         <p style="margin-bottom: 30px; font-size: 1.2rem;">Qualité et performance Samsung</p>
+        
+        <div class="products">
 
-</a>
+            <div class="product">
+                <img src="https://source.unsplash.com/random/400x300/?samsung" alt="Galaxy S25">
+                <h3>Galaxy S25</h3>
+                <p>Le flagship 2025</p>
+                <div class="price">1 150 000 FCFA</div>
+                <button onclick="addToCart('Galaxy S25', 1150000)" class="btn">
+                    Ajouter au panier
+                </button>
+            </div>
 
-<a href="achat.html">
+            <div class="product">
+                <img src="https://source.unsplash.com/random/400x300/?samsung" alt="Galaxy S24">
+                <h3>Galaxy S24</h3>
+                <p>Excellent en photo et vidéo</p>
+                <div class="price">850 000 FCFA</div>
+                <button onclick="addToCart('Galaxy S24', 850000)" class="btn">
+                    Ajouter au panier
+                </button>
+            </div>
 
-<img src="samsung2.jpg">
+            <div class="product">
+                <img src="https://source.unsplash.com/random/400x300/?samsung" alt="Galaxy A35">
+                <h3>Galaxy A35</h3>
+                <p>Milieu de gamme puissant</p>
+                <div class="price">320 000 FCFA</div>
+                <button onclick="addToCart('Galaxy A35', 320000)" class="btn">
+                    Ajouter au panier
+                </button>
+            </div>
 
-</a>
+            <div class="product">
+                <img src="https://source.unsplash.com/random/400x300/?samsung" alt="Galaxy A25">
+                <h3>Galaxy A25</h3>
+                <p>Bon rapport qualité/prix</p>
+                <div class="price">250 000 FCFA</div>
+                <button onclick="addToCart('Galaxy A25', 250000)" class="btn">
+                    Ajouter au panier
+                </button>
+            </div>
 
-<a href="achat.html">
 
-<img src="samsung3.jpg">
+        </div>
+    </main>
 
-</a>
+    <!-- ====== OVERLAY PANIER ====== -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-modal">
+            <h3>Votre Panier</h3>
+            <div id="cart-items">
+                <div class="empty-cart">Votre panier est vide.</div>
+            </div>
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="cart-total-price">0 FCFA</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-fermer" onclick="toggleCart()">Fermer</button>
+                <button class="btn-vider" onclick="viderPanier()">Vider</button>
+                <button class="btn-whatsapp" onclick="checkout()">Commander</button>
+            </div>
+        </div>
+    </div>
 
-<a href="achat.html">
+    <footer>
+        <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
+        <p>Développé par <strong>bossdamien77-coder</strong></p>
+    </footer>
 
-<img src="samsung4.jpg">
+    <script>
+        // ---------- CHARGEMENT DEPUIS LOCALSTORAGE ----------
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        updateCartCount();
 
-</a>
+        // ---------- AJOUTER ----------
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(name);
+        }
+
+        // ---------- SUPPRIMER ----------
+        function removeFromCart(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+
+        // ---------- VIDER ----------
+        function viderPanier() {
+            if (cart.length === 0) return;
+            if (confirm("Vider le panier ?")) {
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                renderCartItems();
+            }
+        }
+
+        // ---------- COMPTEUR ----------
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        // ---------- AFFICHAGE PANIER ----------
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            const totalSpan = document.getElementById('cart-total-price');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart">Votre panier est vide.</div>';
+                totalSpan.textContent = '0 FCFA';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const ligneTotal = item.price * item.quantity;
+                total += ligneTotal;
+
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-detail">Quantité : ${item.quantity} x ${item.price.toLocaleString('fr-FR')} FCFA</div>
+                        </div>
+                        <div>
+                            <span class="cart-item-price">${ligneTotal.toLocaleString('fr-FR')} FCFA</span>
+                            <button class="btn-supprimer" onclick="removeFromCart(${index})">✕</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            totalSpan.textContent = total.toLocaleString('fr-FR') + ' FCFA';
+        }
+
+        // ---------- TOGGLE OVERLAY ----------
+        function toggleCart() {
+            const overlay = document.getElementById('cartOverlay');
+            overlay.classList.toggle('active');
+            renderCartItems();
+        }
+
+        // Fermeture en cliquant à l'extérieur
+        document.getElementById('cartOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // ---------- NOTIFICATION ----------
+        function showNotification(name) {
+            const notif = document.createElement('div');
+            notif.style.cssText =
+                'position:fixed;bottom:20px;right:20px;background:#2ecc71;color:white;padding:15px 20px;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.3);z-index:1000;font-size:1rem;';
+            notif.innerHTML = ` ${name} ajouté au panier !`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2500);
+        }
+
+        // ---------- COMMANDER VIA WHATSAPP ----------
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Votre panier est vide.");
+                return;
+            }
+
+            let message = "Bonjour Damien Shopping,%0A%0A";
+            message += "Je souhaite commander :%0A%0A";
+            let total = 0;
+
+            cart.forEach(item => {
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                message += `- ${item.name} x${item.quantity} = ${itemTotal.toLocaleString('fr-FR')} FCFA%0A`;
+            });
+
+            message += `%0ATotal : ${total.toLocaleString('fr-FR')} FCFA`;
+            message += "%0A%0AMerci.";
+
+            // Fermer le panier
+            document.getElementById('cartOverlay').classList.remove('active');
+
+            // Redirection WhatsApp
+            setTimeout(() => {
+                window.open(`https://wa.me/22651010136?text=${message}`, '_blank');
+            }, 300);
+        }
+    </script>
 
 </body>
-
-</html>
+       </html>
