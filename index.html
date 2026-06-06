@@ -1,183 +1,237 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Damien Shopping</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damien Shopping</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #f8f9fa;
-            color: #333;
-        }
+<style>
 
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 1rem;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-        }
+body{
+font-family:Arial,sans-serif;
+background:#f8f9fa;
+color:#333;
+text-align:center;
+}
 
-        .logo {
-            margin: 20px 0;
-        }
+header{
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:white;
+padding:30px 20px;
+}
 
-        .slogan {
-            font-size: 1.4rem;
-            margin: 15px 0;
-            opacity: 0.95;
+.logo img{
+width:180px;
+max-width:90%;
+}
+
+.slogan{
+font-size:1.2rem;
+margin-top:10px;
+}
+
+.banner{
+background:white;
+margin:25px auto;
+padding:25px;
+max-width:900px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.banner h2{
+margin-bottom:10px;
+color:#ff4757;
+}
+
+.search-bar{
+width:90%;
+max-width:500px;
+padding:15px;
+border:none;
+border-radius:30px;
+margin:20px auto;
+display:block;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.slider{
+width:90%;
+max-width:400px;
+height:220px;
+margin:30px auto;
+overflow:hidden;
+border-radius:15px;
+box-shadow:0 8px 15px rgba(0,0,0,.2);
+}
+
+.slides{
+display:flex;
+width:2400px;
+animation:slide 18s infinite;
+}
+
+.slides img{
+width:400px;
+height:220px;
+object-fit:cover;
+flex-shrink:0;
+}
+
+@keyframes slide{
+
+0%,15%{
+transform:translateX(0);
+}
+
+20%,35%{
+transform:translateX(-400px);
+}
+
+40%,55%{
+transform:translateX(-800px);
+}
+
+60%,75%{
+transform:translateX(-1200px);
+}
+
+80%,95%{
+transform:translateX(-1600px);
+}
+
+100%{
+transform:translateX(0);
+}
 
 }
 
-        .slider {
-    width: 90%;
-    max-width: 400px;
-    height: 200px;
-    overflow: hidden;
-    margin: 30px auto;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    position: relative;
+.categories{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+margin:30px auto;
 }
 
-.slides {
-    display: flex;
-    width: calc(600px * 6);
-    animation: slide 18s infinite;
+.categories a{
+text-decoration:none;
+background:white;
+padding:15px 20px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+color:#333;
+font-weight:bold;
 }
 
-.slides img {
-    width: 400px;
-    height: 200px;
-    object-fit: cover;
-    flex-shrink: 0;
+.btn{
+padding:15px 40px;
+font-size:18px;
+background:#ff4757;
+color:white;
+border:none;
+border-radius:50px;
+cursor:pointer;
+margin-top:20px;
+transition:0.3s;
 }
 
-@keyframes slide {
-
-    0%, 15% {
-        transform: translateX(0);
-    }
-
-    20%, 35% {
-        transform: translateX(-600px);
-    }
-
-    40%, 55% {
-        transform: translateX(-1200px);
-    }
-
-    60%, 75% {
-        transform: translateX(-1800px);
-    }
-
-    80%, 95% {
-        transform: translateX(-2400px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-
+.btn:hover{
+transform:scale(1.05);
 }
-        
 
-        .btn-bleu {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #ff6b6b, #ff4757);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 25px 0;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-        }
+footer{
+background:#2c3e50;
+color:white;
+padding:25px;
+margin-top:40px;
+}
 
-        .btn-bleu:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
-        }
+</style>
 
-        video {
-            width: 90%;
-            max-width: 500px;
-            border-radius: 12px;
-            margin: 30px auto;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-        }
-
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 2.5rem 1rem;
-            margin-top: 40px;
-        }
-    </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>🛍️Damien Shop</h1>
-        <div class="logo">
-            <img src="Damien.png" width="300" alt="Logo Damien Shopping">
-        </div>
-        <p class="slogan">La qualité au meilleur prix</p>
-    </header>
+<header>
 
-    <main>
-        <h2>Bienvenue sur notre plateforme</h2>
-        <p style="font-size: 1.2rem; max-width: 700px; margin: 20px auto;">
-            Découvrez nos nouveaux articles disponibles.
-        </p>
+<div class="logo">
+<img src="Damien.png" alt="Damien Shopping">
+</div>
 
-        <!-- Slider -->
-        <div class="slider">
-            <div class="slides">
-                <img src="produits 1.jpeg" width: 400px;
-    height: 200px; alt="Produit 1">
-                <img src="produits 2.jpeg" width: 400px;
-    height: 200px; alt="Produit 2">
-                <img src="produits 4.jpg" width: 400px;
-    height: 200px; alt="Produit 4">
-                <img src="produits 5.jpg" width: 400px;
-    height: 200px; alt="Produit 5">
-                <img src="produits 10.jpeg" width: 400px;
-    height: 200px; alt="Produit 10">
-                <img src="produits 7.jpg"width: 400px;
-    height: 200px;  alt="Produit 7">
-            </div>
-        </div>
+<h1>Damien Shopping</h1>
 
-        <a href="boutique.html">
-            <button class="btn-bleu">Visiter la Boutique  🏪</button>
-        </a>
+<p class="slogan">
+La qualité au meilleur prix
+</p>
 
-        <h2>Vidéo de présentation🎥</h2>
-        <video autoplay muted loop playsinline>
-            <source src="produits 3.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la vidéo.
-        </video>
+</header>
 
-        
-    </main>
+<div class="banner">
 
-    <footer>
-        <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
-        <p>Développé par <strong>bossdamien77-coder</strong></p>
-    </footer>
+<h2>🔥 Promotions du mois</h2>
+
+<p>
+Découvrez nos téléphones, ordinateurs et accessoires aux meilleurs prix.
+</p>
+
+</div>
+
+<div class="slider">
+
+<div class="slides">
+
+<img src="produits 1.jpeg" alt="Produit 1">
+<img src="produits 2.jpeg" alt="Produit 2">
+<img src="produits 4.jpg" alt="Produit 4">
+<img src="produits 5.jpg" alt="Produit 5">
+<img src="produits 7.jpg" alt="Produit 7">
+<img src="produits 10.jpeg" alt="Produit 10">
+
+</div>
+
+</div>
+
+<div class="categories">
+
+<a href="telephone.html">📱 Téléphones</a>
+
+<a href="ordinateur.html">💻 Ordinateurs</a>
+
+<a href="accessoires.html">🎧 Accessoires</a>
+
+<a href="achat.html">📞 Contact</a>
+
+</div>
+
+<a href="boutique.html">
+<button class="btn">
+Visiter la Boutique
+</button>
+</a>
+
+<h2 style="margin-top:40px;">Vidéo de présentation</h2>
+
+<video width="90%" controls autoplay muted loop style="max-width:500px;border-radius:15px;margin-top:20px;">
+<source src="produits 3.mp4" type="video/mp4">
+Votre navigateur ne supporte pas la vidéo.
+</video>
+
+<footer>
+
+<p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
+
+<p>
+Développé par <strong>bossdamien77-coder</strong>
+</p>
+
+</footer>
 
 </body>
-</html>
+    </html>
