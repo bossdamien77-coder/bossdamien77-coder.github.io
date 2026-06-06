@@ -15,9 +15,9 @@
 
         body{
             font-family:Arial, sans-serif;
+            text-align:center;
             background:#f8f9fa;
             color:#333;
-            text-align:center;
         }
 
         header{
@@ -28,7 +28,7 @@
 
         .nav{
             max-width:1200px;
-            margin:auto;
+            margin:0 auto;
             padding:0 20px;
             display:flex;
             justify-content:space-between;
@@ -42,7 +42,7 @@
             align-items:center;
             gap:15px;
             flex-wrap:wrap;
-            font-size:1rem;
+            font-size:1.05rem;
         }
 
         .nav-link{
@@ -78,9 +78,70 @@
             font-size:2rem;
         }
 
+        /* ====== MARQUES ====== */
+        .brands{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+            gap:25px;
+            max-width:1200px;
+            margin:40px auto;
+            padding:0 20px;
+        }
+
+        .brand-card{
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 10px 20px rgba(0,0,0,0.1);
+            transition:0.3s;
+            padding:20px;
+        }
+
+        .brand-card:hover{
+            transform:translateY(-10px);
+        }
+
+        .brand-card h3{
+            font-size:1.4rem;
+            margin-bottom:15px;
+            color:#667eea;
+        }
+
+        .products-list ul{
+            list-style:none;
+            padding:0;
+            margin-bottom:20px;
+        }
+
+        .products-list ul li{
+            padding:8px 0;
+            border-bottom:1px solid #eee;
+            font-size:1.05rem;
+        }
+
+        .products-list ul li:last-child{
+            border-bottom:none;
+        }
+
+        .btn-bleu{
+            padding:12px 30px;
+            font-size:1rem;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            color:white;
+            border:none;
+            border-radius:50px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .btn-bleu:hover{
+            transform:scale(1.08);
+        }
+
+        /* ====== GRILLE PRODUITS ====== */
         .products{
             display:grid;
-            grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+            grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
             gap:25px;
             max-width:1200px;
             margin:40px auto;
@@ -122,7 +183,7 @@
 
         .btn{
             padding:14px 35px;
-            font-size:1rem;
+            font-size:1.05rem;
             background:linear-gradient(135deg,#ff6b6b,#ff4757);
             color:white;
             border:none;
@@ -136,8 +197,133 @@
             transform:scale(1.08);
         }
 
+        .section-title{
+            margin-top:60px;
+            font-size:1.8rem;
+            color:#444;
+        }
+
         .validate-btn{
             margin-bottom:40px;
+        }
+
+        /* ====== OVERLAY PANIER ====== */
+        .cart-overlay{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.6);
+            z-index:1000;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .cart-overlay.active{
+            display:flex;
+        }
+
+        .cart-modal{
+            background:white;
+            border-radius:20px;
+            padding:30px;
+            max-width:500px;
+            width:90%;
+            max-height:80vh;
+            overflow-y:auto;
+            text-align:left;
+            box-shadow:0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .cart-modal h3{
+            font-size:1.6rem;
+            margin-bottom:20px;
+            text-align:center;
+            color:#333;
+        }
+
+        .cart-item{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:12px 0;
+            border-bottom:1px solid #eee;
+        }
+
+        .cart-item:last-child{
+            border-bottom:none;
+        }
+
+        .cart-item-name{
+            font-size:1.05rem;
+        }
+
+        .cart-item-price{
+            font-weight:bold;
+            color:#ff4757;
+        }
+
+        .cart-total{
+            display:flex;
+            justify-content:space-between;
+            font-size:1.3rem;
+            font-weight:bold;
+            margin-top:20px;
+            padding-top:15px;
+            border-top:2px solid #333;
+        }
+
+        .cart-actions{
+            display:flex;
+            gap:15px;
+            margin-top:25px;
+            flex-wrap:wrap;
+        }
+
+        .cart-actions .btn{
+            flex:1;
+            min-width:140px;
+            margin:0;
+            text-align:center;
+        }
+
+        .btn-whatsapp{
+            background:linear-gradient(135deg,#25D366,#128C7E);
+        }
+
+        .btn-whatsapp:hover{
+            transform:scale(1.05);
+        }
+
+        .btn-fermer{
+            background:linear-gradient(135deg,#999,#666);
+        }
+
+        .btn-fermer:hover{
+            transform:scale(1.05);
+        }
+
+        .btn-supprimer{
+            background:#ff4757;
+            padding:5px 12px;
+            font-size:0.8rem;
+            border:none;
+            border-radius:20px;
+            color:white;
+            cursor:pointer;
+        }
+
+        .btn-supprimer:hover{
+            background:#c0392b;
+        }
+
+        .empty-cart{
+            text-align:center;
+            padding:40px 0;
+            color:#999;
+            font-size:1.2rem;
         }
 
         footer{
@@ -148,6 +334,7 @@
         }
 
     </style>
+
 </head>
 
 <body>
@@ -160,12 +347,15 @@
 
         <div class="nav-links">
 
-            <a href="index.html" class="nav-link">Accueil</a>
+            <a href="accueil.html" class="nav-link">Accueil</a>
+
             <a href="boutique.html" class="nav-link">Boutique</a>
+
             <a href="telephone.html" class="nav-link">Téléphones</a>
+
             <a href="ordinateur.html" class="nav-link">Ordinateurs</a>
+
             <a href="accessoires.html" class="nav-link">Accessoires</a>
-            <a href="contact.html" class="nav-link">Contact</a>
 
             <div onclick="toggleCart()" class="cart-icon">
 
@@ -181,392 +371,294 @@
 
 </header>
 
-<main>
+    <main>
+        <h2>Nos Téléphones par Marque</h2>
+        
+        <div class="brands">
 
-    <h2>Nos Smartphones</h2>
+            <!-- TECNO Spark -->
+            <div class="brand-card">
+                <h3>TECNO Spark</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>Spark 10</li>
+                        <li>Spark 20</li>
+                        <li>Spark 30</li>
+                    </ul>
+                    <a href="spark.html"><button class="btn-bleu">Voir les modèles Spark</button></a>
+                </div>
+            </div>
 
-    <div class="products">
+            <!-- TECNO Camon -->
+            <div class="brand-card">
+                <h3>TECNO Camon</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>Camon 20</li>
+                        <li>Camon 30</li>
+                    </ul>
+                    <a href="camon.html"><button class="btn-bleu">Voir les modèles Camon</button></a>
+                </div>
+            </div>
 
-        <div class="product">
+            <!-- TECNO Pop -->
+            <div class="brand-card">
+                <h3>TECNO Pop</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>Pop 9</li>
+                        <li>Pop 10</li>
+                        <li>Pop 20</li>
+                    </ul>
+                    <a href="pop.html"><button class="btn-bleu">Voir les modèles Pop</button></a>
+                </div>
+                </div>
 
-            <img src="produits 9.jpeg" alt="iPhone">
+            <!-- Itel -->
+            <div class="brand-card">
+                <h3>Itel</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>Itel P70</li>
+                        <li>Itel A80</li>
+                        <li>Itel A90</li>
+                    </ul>
+                    <a href="itel.html"><button class="btn-bleu">Voir les modèles Itel</button></a>
+                </div>
+            </div>
 
-            <h3>iPhone 15 Pro</h3>
+            <!-- iPhone -->
+            <div class="brand-card">
+                <h3>Apple iPhone</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>iPhone X</li>
+                        <li>iPhone 11 Pro</li>
+                        <li>iPhone 12</li>
+                        <li>iPhone 13</li>
+                        <li>iPhone 14 Pro</li>
+                        <li>iPhone 15 Pro</li>
+                        <li>iPhone 16 Pro</li>
+                        <li>iPhone 17</li>
+                    </ul>
+                    <a href="iphone.html"><button class="btn-bleu">Voir les iPhones</button></a>
+                </div>
+            </div>
 
-            <p>Le dernier modèle Apple</p>
+            <!-- Samsung -->
+            <div class="brand-card">
+                <h3>Samsung Galaxy</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>Galaxy A15</li>
+                        <li>Galaxy A25</li>
+                        <li>Galaxy A35</li>
+                        <li>Galaxy S23</li>
+                        <li>Galaxy S24</li>
+                        <li>Galaxy S25</li>
+                    </ul>
+                    <a href="samsung.html"><button class="btn-bleu">Voir les Samsung</button></a>
+                </div>
+            </div>
 
-            <div class="price">799 000 FCFA</div>
-
-            <button onclick="addToCart('iPhone 15 Pro', 799000, 'produits 9.jpeg')" class="btn">
-
-                Ajouter au panier
-
-            </button>
+            <!-- Infinix -->
+            <div class="brand-card">
+                <h3>Infinix</h3>
+                <div class="products-list">
+                    <ul>
+                        <li>Hot Series</li>
+                        <li>Smart Series</li>
+                        <li>Note Series</li>
+                        <li>Zero Series</li>
+                    </ul>
+                    <a href="infinix.html"><button class="btn-bleu">Voir les Infinix</button></a>
+                </div>
+            </div>
 
         </div>
 
-        <div class="product">
+        <!-- ====== GRILLE PRODUITS AVEC PRIX ====== -->
+        <h2 class="section-title">Produits en vedette</h2>
 
-            <img src="produits 1.jpeg" alt="Samsung">
+        <div class="products" id="products-grid">
 
-            <h3>Samsung Galaxy S24</h3>
+            <div class="product">
+                <img src="https://via.placeholder.com/400x220/e74c3c/fff?text=iPhone+17" alt="iPhone 17">
+                <h3>iPhone 17</h3>
+                <p>Apple A19, 128 Go, 48 Mpx</p>
+                <div class="price">1 299 000 FCFA</div>
+                <button class="btn" onclick='ajouterAuPanier("iPhone 17", 1299000)'>Ajouter au panier</button>
+            </div>
 
-            <p>Performance exceptionnelle</p>
+            <div class="product">
+                <img src="https://via.placeholder.com/400x220/3498db/fff?text=Samsung+S25" alt="Samsung Galaxy S25">
+                <h3>Samsung Galaxy S25</h3>
+                <p>Exynos 2500, 256 Go, 200 Mpx</p>
+                <div class="price">1 150 000 FCFA</div>
+                <button class="btn" onclick='ajouterAuPanier("Samsung Galaxy S25", 1150000)'>Ajouter au panier</button>
+            </div>
 
-            <div class="price">650 000 FCFA</div>
+            <div class="product">
+                <img src="https://via.placeholder.com/400x220/2ecc71/fff?text=TECNO+Spark+30" alt="TECNO Spark 30">
+                <h3>TECNO Spark 30</h3>
+                <p>Helio G99, 256 Go, 108 Mpx</p>
+                <div class="price">250 000 FCFA</div>
+                <button class="btn" onclick='ajouterAuPanier("TECNO Spark 30", 250000)'>Ajouter au panier</button>
+            </div>
 
-            <button onclick="addToCart('Samsung Galaxy S24', 650000, 'produits 1.jpeg')" class="btn">
+            <div class="product">
+                <img src="https://via.placeholder.com/400x220/9b59b6/fff?text=iPhone+16+Pro" alt="iPhone 16 Pro">
+                <h3>iPhone 16 Pro</h3>
+                <p>A18 Pro, 256 Go, Titane</p>
+                <div class="price">1 450 000 FCFA</div>
+                <button class="btn" onclick='ajouterAuPanier("iPhone 16 Pro", 1450000)'>Ajouter au panier</button>
+            </div>
 
-                Ajouter au panier
+            <div class="product">
+                <img src="https://via.placeholder.com/400x220/e67e22/fff?text=Galaxy+A35" alt="Samsung Galaxy A35">
+                <h3>Samsung Galaxy A35</h3>
+                <p>Exynos 1380, 128 Go, 50 Mpx</p>
+                <div class="price">350 000 FCFA</div>
+                <button class="btn" onclick='ajouterAuPanier("Samsung Galaxy A35", 350000)'>Ajouter au panier</button>
+            </div>
 
-            </button>
+            <div class="product">
+                <img src="https://via.placeholder.com/400x220/1abc9c/fff?text=Infinix+Zero" alt="Infinix Zero">
+                <h3>Infinix Zero 5G</h3>
+                <p>Dimensity 1080, 256 Go, 108 Mpx</p>
+                <div class="price">320 000 FCFA</div>
+                <button class="btn" onclick='ajouterAuPanier("Infinix Zero 5G", 320000)'>Ajouter au panier</button>
+            </div>
 
         </div>
 
-        <div class="product">
+    </main>
 
-            <img src="produits 5.jpg" alt="Xiaomi">
-
-            <h3>Xiaomi 14T</h3>
-
-            <p>Excellent rapport qualité/prix</p>
-
-            <div class="price">450 000 FCFA</div>
-
-            <button onclick="addToCart('Xiaomi 14T', 450000, 'produits 5.jpg')" class="btn">
-
-                Ajouter au panier
-
-            </button>
-
+    <!-- ====== OVERLAY PANIER ====== -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-modal">
+            <h3>🛒 Votre Panier</h3>
+            <div id="cart-items">
+                <div class="empty-cart">Votre panier est vide.</div>
+            </div>
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="cart-total-price">0 FCFA</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-fermer" onclick="toggleCart()">Fermer</button>
+                <button class="btn btn-whatsapp" id="whatsappBtn" onclick="commanderWhatsApp()">Commander via WhatsApp</button>
+            </div>
         </div>
-
     </div>
 
-    <a href="Achat.html">
+    <footer>
+        <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
+        <p>Développé par <strong>bossdamien77-coder</strong></p>
+    </footer>
 
-        <button class="btn validate-btn">
+    <!-- ====== SCRIPT PANIER COMPLET ====== -->
+    <script>
+        // Tableau du panier : [{nom, prix}, ...]
+        let cart = [];
 
-            Valider
+        // Numéro WhatsApp du vendeur (à modifier)
+        const WHATSAPP_NUMBER = "22651010136"; // Remplace par le vrai numéro
 
-        </button>
+        // Met à jour l'affichage du panier (icône + overlay)
+        function updateCartDisplay() {
+            // Compteur dans l'icône
+            document.getElementById("cart-count").textContent = cart.length;
 
-    </a>
+            const container = document.getElementById("cart-items");
+            const totalSpan = document.getElementById("cart-total-price");
 
-</main>
+            if(cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart">Votre panier est vide.</div>';
+                totalSpan.textContent = "0 FCFA";
+                return;
+            }
 
-<footer>
+            let html = "";
+            let total = 0;
 
-    <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
-
-    <p>Développé par <strong>bossdamien77-coder</strong></p>
-
-</footer>
-
-<script>
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    updateCartCount();
-
-    function addToCart(name, price, image){
-
-        const existing = cart.find(item => item.name === name);
-
-        if(existing){
-
-            existing.quantity += 1;
-
-        }else{
-
-            cart.push({
-                name,
-                price,
-                image,
-                quantity:1
+            cart.forEach((item, index) => {
+                total += item.prix;
+                const prixFormate = item.prix.toLocaleString("fr-FR") + " FCFA";
+                html += `
+                    <div class="cart-item">
+                        <span class="cart-item-name">${item.nom}</span>
+                        <span>
+                            <span class="cart-item-price">${prixFormate}</span>
+                            <button class="btn-supprimer" onclick="supprimerDuPanier(${index})">✕</button>
+                        </span>
+                    </div>
+                `;
             });
 
+            container.innerHTML = html;
+            totalSpan.textContent = total.toLocaleString("fr-FR") + " FCFA";
         }
 
-        localStorage.setItem('cart', JSON.stringify(cart));
+        // Ajouter un produit au panier
+        function ajouterAuPanier(nom, prix) {
+            cart.push({ nom, prix });
+            updateCartDisplay();
+            // Feedback visuel
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = "✓ Ajouté !";
+            btn.style.background = "linear-gradient(135deg,#2ecc71,#27ae60)";
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = "";
+            }, 1500);
+        }
 
-        updateCartCount();
+        // Supprimer un produit du panier
+        function supprimerDuPanier(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
 
-        showNotification(name);
+        // Ouvrir / fermer l'overlay du panier
+        function toggleCart() {
+            const overlay = document.getElementById("cartOverlay");
+            overlay.classList.toggle("active");
+            updateCartDisplay();
+        }
 
-    }
-
-    function updateCartCount(){
-
-        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-        document.getElementById('cart-count').textContent = count;
-
-    }
-
-    function showNotification(name){
-
-        const notif = document.createElement('div');
-
-        notif.style.cssText = `
-            position:fixed;
-            bottom:20px;
-            right:20px;
-            background:#2ecc71;
-            color:white;
-            padding:15px 20px;
-            border-radius:8px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.3);
-            z-index:1000;
-        `;
-
-        notif.textContent = `✅ ${name} ajouté au panier !`;
-
-        document.body.appendChild(notif);
-
-        setTimeout(() => {
-
-            notif.remove();
-
-        }, 2500);
-
-    }
-
-    function toggleCart(){
-
-        let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-        let cartHTML = `
-
-        <div id="cart-modal"
-        style="
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,0.7);
-        z-index:2000;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        "
-        onclick="if(event.target === this) closeCart()">
-
-            <div
-            style="
-            background:white;
-            padding:25px;
-            border-radius:15px;
-            width:90%;
-            max-width:500px;
-            max-height:85vh;
-            overflow-y:auto;
-            "
-            onclick="event.stopPropagation()">
-
-                <h2>🛒 Mon Panier (${cart.length} articles)</h2>
-
-                <div id="cart-items" style="margin:20px 0;"></div>
-
-                <hr>
-
-                <h3>
-                    Total :
-                    <span id="cart-total">
-                        ${total.toLocaleString('fr-FR')}
-                    </span>
-                    FCFA
-                </h3>
-
-                <button
-                onclick="closeCart()"
-                style="
-                margin:10px;
-                padding:12px 25px;
-                background:#95a5a6;
-                color:white;
-                border:none;
-                border-radius:8px;
-                cursor:pointer;
-                ">
-                    Fermer
-                </button>
-
-                <button
-                onclick="checkout()"
-                style="
-                margin:10px;
-                padding:12px 25px;
-                background:#2ecc71;
-                color:white;
-                border:none;
-                border-radius:50px;
-                cursor:pointer;
-                ">
-                    Valider la commande
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-
-        const container = document.createElement('div');
-
-        container.innerHTML = cartHTML;
-
-        document.body.appendChild(container.firstElementChild);
-
-        renderCartItems();
-
-    }
-
-    function renderCartItems(){
-
-        const container = document.getElementById('cart-items');
-
-        let html = '';
-
-        cart.forEach((item, index) => {
-
-            const itemTotal = item.price * item.quantity;
-
-            html += `
-
-            <div
-            style="
-            display:flex;
-            margin:15px 0;
-            padding-bottom:15px;
-            border-bottom:1px solid #eee;
-            ">
-
-                <img
-                src="${item.image}"
-                style="
-                width:70px;
-                height:70px;
-                object-fit:cover;
-                border-radius:8px;
-                ">
-
-                <div
-                style="
-                margin-left:15px;
-                flex:1;
-                text-align:left;
-                ">
-
-                    <h4>${item.name}</h4>
-
-                    <p>
-                        ${item.price.toLocaleString('fr-FR')}
-                        FCFA × ${item.quantity}
-                    </p>
-
-                </div>
-
-                <div style="text-align:right;">
-
-                    <p>
-                        <strong>
-                        ${itemTotal.toLocaleString('fr-FR')}
-                        FCFA
-                        </strong>
-                    </p>
-
-                    <button
-                    onclick="removeFromCart(${index})"
-                    style="
-                    color:red;
-                    background:none;
-                    border:none;
-                    cursor:pointer;
-                    ">
-                        Supprimer
-                    </button>
-
-                </div>
-
-            </div>
-
-            `;
-
+        // Fermer l'overlay en cliquant en dehors du modal
+        document.getElementById("cartOverlay").addEventListener("click", function(e) {
+            if(e.target === this) {
+                this.classList.remove("active");
+            }
         });
 
-        if(cart.length === 0){
+        // Commander via WhatsApp
+        function commanderWhatsApp() {
+            if(cart.length === 0) {
+                alert("Votre panier est vide. Ajoutez des produits avant de commander.");
+                return;
+            }
 
-            html = "<p>Votre panier est vide.</p>";
+            // Construire le message
+            let message = "🛒 *Nouvelle commande Damien Shopping*%0A%0A";
+            let total = 0;
 
+            cart.forEach((item, index) => {
+                const prix = item.prix.toLocaleString("fr-FR");
+                message += `${index + 1}. ${item.nom} - ${prix} FCFA%0A`;
+                total += item.prix;
+            });
+
+            message += `%0A📦 *Total : ${total.toLocaleString("fr-FR")} FCFA*%0A`;
+            message += "%0A🙏 Merci de me contacter pour finaliser la commande.";
+
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            window.open(url, "_blank");
         }
-
-        container.innerHTML = html;
-
-    }
-
-    function removeFromCart(index){
-
-        cart.splice(index, 1);
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        renderCartItems();
-
-        updateCartCount();
-
-    }
-
-    function closeCart(){
-
-        const cartModal = document.getElementById('cart-modal');
-
-        if(cartModal){
-
-            cartModal.remove();
-
-        }
-
-    }
-
-    function checkout(){
-
-        if(cart.length === 0){
-
-            alert("Votre panier est vide.");
-
-            return;
-
-        }
-
-        let message = "Bonjour Damien Shopping,%0A%0A";
-
-        message += "Je souhaite commander :%0A%0A";
-
-        let total = 0;
-
-        cart.forEach(item => {
-
-            let itemTotal = item.price * item.quantity;
-
-            total += itemTotal;
-
-            message += `- ${item.name} x${item.quantity} = ${itemTotal.toLocaleString('fr-FR')} FCFA%0A`;
-
-        });
-
-        message += `%0ATotal : ${total.toLocaleString('fr-FR')} FCFA`;
-
-        message += "%0A%0AMerci.";
-
-        const whatsappURL = `https://wa.me/22651010136?text=${message}`;
-
-        window.open(whatsappURL, '_blank');
-
-    }
-
-</script>
+    </script>
 
 </body>
-</html>
+    </html>
