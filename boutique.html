@@ -137,6 +137,259 @@
         <p>&copy; 2026 Damien Shopping - Tous droits réservés</p>
         <p>Développé par <strong>bossdamien77-coder</strong></p>
     </footer>
+<!-- ===== Chat + WhatsApp Floating Widget ===== -->
+<style>
+  /* Container flottant */
+  #chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
 
+  /* Bouton WhatsApp */
+  #whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-bottom: 10px;
+    margin-left: auto;
+  }
+  #whatsapp-btn:hover {
+    transform: scale(1.1);
+  }
+  #whatsapp-btn svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+  }
+
+  /* Bouton chat */
+  #chat-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    cursor: pointer;
+    font-size: 28px;
+    transition: transform 0.2s;
+    margin-left: auto;
+  }
+  #chat-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  /* Fenêtre de chat */
+  #chat-box {
+    display: none;
+    width: 320px;
+    max-height: 460px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  #chat-box.open {
+    display: flex;
+  }
+
+  #chat-header {
+    background: #1a73e8;
+    color: white;
+    padding: 14px 18px;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #chat-header span { font-size: 18px; cursor: pointer; }
+
+  #chat-messages {
+    padding: 12px 14px;
+    overflow-y: auto;
+    flex: 1;
+    max-height: 300px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .msg {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 85%;
+  }
+  .msg.bot {
+    background: #f0f4ff;
+    color: #222;
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+  }
+  .msg.user {
+    background: #1a73e8;
+    color: white;
+    align-self: flex-end;
+    border-top-right-radius: 4px;
+    margin-left: auto;
+  }
+
+  #chat-input-area {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 8px;
+  }
+  #chat-input {
+    flex: 1;
+    border: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    outline: none;
+    border-radius: 20px;
+    background: #f5f5f5;
+  }
+  #chat-send {
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    margin-left: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #chat-send:hover { background: #1557b0; }
+
+  /* Quick replies */
+  .quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 10px;
+  }
+  .quick-reply {
+    background: #e8f0fe;
+    color: #1a73e8;
+    border: 1px solid #c5d9fc;
+    border-radius: 16px;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+  .quick-reply:hover { background: #d2e3fc; }
+</style>
+
+<div id="chat-widget">
+  <!-- Fenêtre de chat -->
+  <div id="chat-box">
+    <div id="chat-header">
+      🤖 Damien Assistant
+      <span onclick="toggleChat()">✕</span>
+    </div>
+    <div id="chat-messages">
+      <div class="msg bot">👋 Bonjour ! Je suis l'assistant de <strong>Damien Shopping</strong>. Besoin d'aide ?</div>
+    </div>
+    <div style="padding: 0 14px 4px;">
+      <div class="quick-replies">
+        <span class="quick-reply" onclick="sendQuick('Horaires')">🕐 Horaires</span>
+        <span class="quick-reply" onclick="sendQuick('Livraison')">🚚 Livraison</span>
+        <span class="quick-reply" onclick="sendQuick('WhatsApp')">📱 WhatsApp</span>
+        <span class="quick-reply" onclick="sendQuick('Promotions')">🔥 Promo</span>
+      </div>
+    </div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Écrivez votre message..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button id="chat-send" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <!-- Bouton WhatsApp -->
+  <a id="whatsapp-btn" href="https://wa.me/22651010136?text=Bonjour%20Damien%20Shopping%20!" target="_blank" title="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- Bouton ouvrir le chat -->
+  <button id="chat-toggle" onclick="toggleChat()">💬</button>
+</div>
+
+<script>
+  function toggleChat() {
+    const box = document.getElementById('chat-box');
+    const toggle = document.getElementById('chat-toggle');
+    box.classList.toggle('open');
+    toggle.style.display = box.classList.contains('open') ? 'none' : 'flex';
+  }
+
+  function addMessage(text, isUser = false) {
+    const container = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg ' + (isUser ? 'user' : 'bot');
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function sendQuick(topic) {
+    const responses = {
+      'Horaires': '🕐 Nous sommes ouverts du **lundi au samedi** de 8h à 19h.',
+      'Livraison': '🚚 Livraison disponible partout au Burkina Faso sous 24-72h.',
+      'WhatsApp': '📱 Cliquez sur l\'icône verte WhatsApp à côté ! Ou écrivez au +226 51 01 01 36.',
+      'Promotions': '🔥 En ce moment : téléphones, ordinateurs et accessoires à prix réduits ! Visitez notre boutique.'
+    };
+    addMessage(topic, true);
+    setTimeout(() => addMessage(responses[topic] || 'Je vous conseille de contacter notre équipe par WhatsApp.'), 400);
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    addMessage(text, true);
+    input.value = '';
+
+    setTimeout(() => {
+      const lower = text.toLowerCase();
+      let reply;
+      if (lower.includes('bonjour') || lower.includes('salut') || lower.includes('hello')) {
+        reply = '👋 Bonjour ! Que puis-je pour vous ?';
+      } else if (lower.includes('horaire') || lower.includes('heure') || lower.includes('ouvert')) {
+        reply = '🕐 Nous sommes ouverts du lundi au samedi, 8h-19h.';
+      } else if (lower.includes('livraison') || lower.includes('livré')) {
+        reply = '🚚 Livraison au Burkina Faso sous 24-72h selon votre localisation.';
+      } else if (lower.includes('prix') || lower.includes('tarif') || lower.includes('promo') || lower.includes('promotion')) {
+        reply = '🔥 Consultez nos promotions sur la page boutique !';
+      } else if (lower.includes('whatsapp') || lower.includes('contact') || lower.includes('téléphone')) {
+        reply = '📱 WhatsApp : +226 51 01 01 36 — cliquez sur l\'icône verte !';
+      } else if (lower.includes('merci')) {
+        reply = '🎉 Avec plaisir ! Bon shopping chez Damien Shopping !';
+      } else {
+        reply = '🤔 Je n\'ai pas compris. Vous pouvez utiliser les suggestions ci-dessus ou nous contacter directement sur WhatsApp.';
+      }
+      addMessage(reply);
+    }, 600);
+  }
+</script>
+<!-- ===== Fin Chat Widget ===== -->
 </body>
 </html>
